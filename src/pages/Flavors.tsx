@@ -1,4 +1,4 @@
-import { BottleArt } from "@/components/BottleArt";
+import { ProductPhoto } from "@/components/ProductPhoto";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -83,7 +83,7 @@ function FlavorCard({
   return (
     <Card className="studio-frame studio-frame-hover flex flex-col overflow-hidden border-border/80 py-0 gap-0">
       <CardHeader className="items-center border-b border-border/60 bg-cream/50 pb-2 pt-6">
-        <BottleArt flavor={product.imageKey} className="h-40" />
+        <ProductPhoto flavor={product.imageKey} className="h-40 w-auto" />
       </CardHeader>
       <CardContent className="flex-1 pb-0 pt-4">
         <CardTitle className="text-base">{product.name}</CardTitle>

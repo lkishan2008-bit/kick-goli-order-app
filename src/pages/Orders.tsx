@@ -1,4 +1,4 @@
-import { BottleArt } from "@/components/BottleArt";
+import { ProductPhoto } from "@/components/ProductPhoto";
 import { Button } from "@/components/ui/button";
 import { api } from "@/convex/_generated/api";
 import { useCart } from "@/lib/cart-context";
@@ -101,11 +101,10 @@ export default function Orders() {
                   key={item._id}
                   className="inline-flex items-center gap-1.5 rounded-full border border-border bg-cream/60 py-1 pl-1 pr-3 text-xs"
                 >
-                  <span className="flex h-6 w-5 items-end justify-center rounded-full bg-card">
-                    <BottleArt
+                  <span className="flex h-7 w-6 items-center justify-center overflow-hidden rounded-full bg-cream">
+                    <ProductPhoto
                       flavor={item.imageSnapshot}
-                      className="w-3.5"
-                      showShadow={false}
+                      className="h-6 w-5"
                     />
                   </span>
                   {item.quantity} × {item.nameSnapshot}

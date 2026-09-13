@@ -1,0 +1,100 @@
+/**
+ * ProductPhoto — real product photography for each flavor, served from
+ * /public/products/{imageKey}.jpg. Falls back to the illustrated BottleArt
+ * SVG while a photo file is missing, so the UI never shows a broken image.
+ *
+ * Photo mapping (photo → imageKey):
+ *   pink bottle    → rose
+ *   clear bottle   → original
+ *   brown bottle   → cola
+ *   yellow bottle  → lemon
+ *   green bottle   → green-apple
+ *   blue bottle    → blueberry
+ *   orange bottle  → orange
+ *
+ * Photos are presented on a soft neutral tile (bg-cream) with
+ * object-contain so all 7 read consistently in the grid.
+ */
+
+import { useState } from "react";
+import { BottleArt } from "./BottleArt";
+import { FactoryScene } from "./FactoryScene";
+
+export function ProductPhoto({
+  flavor,
+  className,
+  showShadow = true,
+}: {
+  flavor: string;
+  className?: string;
+  showShadow?: boolean;
+}) {
+  const [failed, setFailed] = useState(false);
+
+  if (failed || !flavor) {
+    return (
+      <BottleArt flavor={flavor || "original"} className={className} showShadow={showShadow} />
+    );
+  }
+
+  return (
+    <img
+      src={`/products/${flavor}.jpg`}
+      alt={`Kick Goli Soda ${flavor} — 200 ml glass bottle`}
+      loading="lazy"
+      draggable={false}
+      className={`object-contain ${className ?? ""}`}
+      onError={() => setFailed(true)}
+    />
+  );
+}
+
+/**
+ * FactoryBanner — the real factory/tea-garden banner photo from
+ * /public/products/factory.jpg. Falls back to the illustrated FactoryScene
+ * while the photo is missing.
+ */
+export function FactoryBanner({ className }: { className?: string }) {
+  const [failed, setFailed] = useState(false);
+
+  if (failed) {
+    return <FactoryScene className={className} />;
+  }
+
+  return (
+    <img
+      src="/products/factory.jpg"
+      alt="Vibhin Enterprises Kick Goli Soda manufacturing plant and head office at Ajjampura, Chikmagalur District"
+      loading="lazy"
+      draggable={false}
+      className={`object-cover ${className ?? ""}`}
+      onError={() => setFailed(true)}
+    />
+  );
+}
+
+/** Hero band: the full product family — all 7 flavors in canonical order. */
+export function BottleFamily({ className }: { className?: string }) {
+  const flavors = ["cola", "blueberry", "green-apple", "original", "orange", "lemon", "rose"];
+  return (
+    <div className={className}>
+      <div className="flex items-end justify-center gap-2 sm:gap-4">
+        {flavors.map((f, i) => (
+          <div
+            key={f}
+            className="relative"
+            style={{
+              zIndex: flavors.length - i,
+              transform: `translateY(${Math.abs(i - 3) * 2}px)`,
+            }}
+          >
+            <ProductPhoto
+              flavor={f}
+              className="w-[9vw] max-w-[64px] min-w-[30px]"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}

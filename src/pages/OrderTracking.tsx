@@ -1,4 +1,4 @@
-import { BottleArt } from "@/components/BottleArt";
+import { ProductPhoto } from "@/components/ProductPhoto";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { api } from "@/convex/_generated/api";
@@ -141,12 +141,8 @@ export default function OrderTracking() {
         <div className="mt-4 space-y-3">
           {order.items.map((item) => (
             <div key={item._id} className="flex items-center gap-3">
-              <div className="flex h-12 w-8 shrink-0 items-end justify-center rounded-md bg-muted/60 px-0.5 pt-0.5">
-                <BottleArt
-                  flavor={item.productId ? "cola" : "cola"}
-                  className="w-5"
-                  showShadow={false}
-                />
+              <div className="flex h-14 w-10 shrink-0 items-center justify-center overflow-hidden rounded-md bg-cream">
+                <ProductPhoto flavor={item.imageSnapshot} className="h-12 w-9" />
               </div>
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm">{item.nameSnapshot}</p>

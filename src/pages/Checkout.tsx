@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Separator } from "@/components/ui/separator";
-import { BottleArt } from "@/components/BottleArt";
+import { ProductPhoto } from "@/components/ProductPhoto";
 import { useAuth } from "@/hooks/use-auth";
 import { useCart } from "@/lib/cart-context";
 import { api } from "@/convex/_generated/api";
@@ -148,7 +148,7 @@ export default function Checkout() {
   if (lines.length === 0 && !placing) {
     return (
       <div className="mx-auto flex w-full max-w-md flex-col items-center px-4 py-24 text-center">
-        <BottleArt flavor="orange" className="h-28 opacity-60" />
+        <ProductPhoto flavor="orange" className="h-28 w-auto opacity-70" />
         <h1 className="font-display mt-6 text-2xl">Your cart is empty</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           Add a few bottles and come back to check out.
@@ -439,12 +439,8 @@ export default function Checkout() {
           <div className="mt-4 space-y-3">
             {lines.map((line) => (
               <div key={line.productId} className="flex items-center gap-3">
-                <div className="flex h-12 w-8 shrink-0 items-end justify-center rounded-md bg-muted/60 px-0.5 pt-0.5">
-                  <BottleArt
-                    flavor={line.imageKey}
-                    className="w-5"
-                    showShadow={false}
-                  />
+                <div className="flex h-14 w-10 shrink-0 items-center justify-center overflow-hidden rounded-md bg-cream">
+                  <ProductPhoto flavor={line.imageKey} className="h-12 w-8" />
                 </div>
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm">{line.name}</p>

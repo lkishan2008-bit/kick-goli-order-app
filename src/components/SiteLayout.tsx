@@ -3,7 +3,7 @@
  * framing, cart drawer (Sheet), sticky mobile cart bar, and footer.
  */
 
-import { BottleArt } from "@/components/BottleArt";
+import { ProductPhoto } from "@/components/ProductPhoto";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -38,8 +38,8 @@ function CartLineRow({ line }: { line: CartLineView }) {
   const { setQuantity } = useCart();
   return (
     <div className="flex items-center gap-3 py-3">
-      <div className="flex h-16 w-10 shrink-0 items-end justify-center rounded-md bg-muted/60 px-1 pt-1">
-        <BottleArt flavor={line.imageKey} className="w-7" showShadow={false} />
+      <div className="flex h-16 w-12 shrink-0 items-center justify-center overflow-hidden rounded-md bg-cream">
+        <ProductPhoto flavor={line.imageKey} className="h-14 w-10" />
       </div>
       <div className="min-w-0 flex-1">
         <p className="truncate text-sm font-medium">{line.name}</p>
@@ -204,6 +204,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
   const navItems = useMemo(
     () => [
+      { to: "/", label: "Home" },
       { to: "/flavors", label: "Flavours" },
       { to: "/orders", label: "My Orders" },
       { to: "/account", label: "Account" },
@@ -216,8 +217,8 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       <header className="sticky top-0 z-40 border-b border-border/80 bg-background/90 backdrop-blur">
         <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-3 px-4">
           <Link to="/" className="flex items-center gap-2.5">
-            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10">
-              <BottleArt flavor="orange" className="h-7" showShadow={false} />
+            <span className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg bg-cream">
+              <ProductPhoto flavor="orange" className="h-8 w-7" />
             </span>
             <span className="flex flex-col leading-none">
               <span className="font-display text-[15px] font-semibold tracking-tight">

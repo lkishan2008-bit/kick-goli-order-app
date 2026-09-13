@@ -1,5 +1,4 @@
-import { BottleFamily } from "@/components/BottleArt";
-import { FactoryScene } from "@/components/FactoryScene";
+import { BottleFamily, FactoryBanner } from "@/components/ProductPhoto";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Leaf, Phone, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
@@ -61,6 +60,7 @@ export default function Landing() {
             className="mt-14"
           >
             <BottleFamily />
+            {/* real product photography replaces the illustration above */}
             <p className="mt-5 text-xs uppercase tracking-[0.2em] text-muted-foreground">
               Seven flavours · One marble · 200 ml
             </p>
@@ -112,7 +112,7 @@ export default function Landing() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="studio-frame overflow-hidden rounded-2xl"
           >
-            <FactoryScene className="h-full w-full" />
+            <FactoryBanner className="h-64 w-full object-cover md:h-80" />
             <div className="border-t border-border/70 bg-card px-5 py-4">
               <p className="text-sm font-medium">
                 Manufacturing &amp; Head Office — Ajjampura

@@ -5,7 +5,7 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import { BottleArt, BottleFamily } from "@/components/BottleArt";
+import { BottleFamily, ProductPhoto } from "@/components/ProductPhoto";
 import { useAuth } from "@/hooks/use-auth";
 import { ArrowRight, Loader2, Mail, ShoppingBag, UserX } from "lucide-react";
 import { Suspense, useEffect, useState } from "react";
@@ -101,8 +101,8 @@ function Auth({ redirectAfterAuth }: AuthProps = {}) {
         {/* brand panel — bottles do the talking */}
         <div className="order-2 hidden flex-col items-center text-center lg:order-1 lg:flex">
           <Link to="/" className="flex items-center gap-2.5">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
-              <BottleArt flavor="orange" className="h-7" showShadow={false} />
+            <span className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-cream">
+              <ProductPhoto flavor="orange" className="h-8 w-7" />
             </span>
             <span className="flex flex-col leading-none">
               <span className="font-display text-lg font-semibold tracking-tight">
@@ -134,11 +134,10 @@ function Auth({ redirectAfterAuth }: AuthProps = {}) {
                     className="inline-flex items-center gap-2"
                     aria-label="Back to home"
                   >
-                    <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10">
-                      <BottleArt
+                    <span className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg bg-cream">
+                      <ProductPhoto
                         flavor="orange"
-                        className="h-6"
-                        showShadow={false}
+                        className="h-7 w-6"
                       />
                     </span>
                     <span className="font-display text-base font-semibold">
