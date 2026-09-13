@@ -20,6 +20,8 @@ import { useState } from "react";
 import { BottleArt } from "./BottleArt";
 import { FactoryScene } from "./FactoryScene";
 
+const REAL_PHOTO_FLAVORS = new Set(["cola", "blueberry", "rose"]);
+
 export function ProductPhoto({
   flavor,
   className,
@@ -31,7 +33,8 @@ export function ProductPhoto({
 }) {
   const [failed, setFailed] = useState(false);
 
-  if (failed || !flavor) {
+  // If flavor doesn't have a real photo yet or failed to load, fall back to BottleArt SVG
+  if (failed || !flavor || !REAL_PHOTO_FLAVORS.has(flavor)) {
     return (
       <BottleArt flavor={flavor || "original"} className={className} showShadow={showShadow} />
     );

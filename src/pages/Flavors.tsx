@@ -12,20 +12,26 @@ import { api } from "@/convex/_generated/api";
 import { useMutation, useQuery } from "convex/react";
 import { Check, Minus, Plus, ShoppingBag } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { CATALOG } from "@/data/catalog";
 import { toast } from "sonner";
 
 export default function Flavors() {
-  const products = useQuery(api.products.list) ?? [];
+  const queryProducts = useQuery(api.products.list);
   const ensureSeeded = useMutation(api.products.ensureSeeded);
   const seedAttempted = useRef(false);
 
+  const products =
+    queryProducts && queryProducts.length > 0
+      ? queryProducts
+      : CATALOG.map((p) => ({ ...p, _id: p.slug }));
+
   // If the catalog hasn't been seeded yet on this deployment, seed it now.
   useEffect(() => {
-    if (products.length === 0 && !seedAttempted.current) {
+    if ((!queryProducts || queryProducts.length === 0) && !seedAttempted.current) {
       seedAttempted.current = true;
-      ensureSeeded();
+      ensureSeeded().catch(() => {});
     }
-  }, [products.length, ensureSeeded]);
+  }, [queryProducts, ensureSeeded]);
 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-10">
