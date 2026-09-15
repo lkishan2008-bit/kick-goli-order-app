@@ -61,6 +61,7 @@ function OwnerConsoleEntry() {
           try {
             await claimAdmin({ email: user.email });
             toast.success("Owner access enabled");
+            window.location.reload();
           } catch (err) {
             toast.error(
               err instanceof Error
@@ -70,7 +71,6 @@ function OwnerConsoleEntry() {
           } finally {
             setClaiming(false);
           }
-          window.location.reload();
         }}
       >
         {claiming ? "Checking…" : "Claim owner access"}
