@@ -4,23 +4,31 @@
  * SVG while a photo file is missing, so the UI never shows a broken image.
  *
  * Photo mapping (photo → imageKey):
- *   pink bottle    → rose
- *   clear bottle   → original
- *   brown bottle   → cola
- *   yellow bottle  → lemon
- *   green bottle   → green-apple
- *   blue bottle    → blueberry
- *   orange bottle  → orange
+ *   green liquid   → green-apple  (green-apple.jpg)
+ *   yellow liquid  → lemon        (lemon.jpg)
+ *   orange liquid  → orange       (orange.jpg)
+ *   clear liquid   → original     (original.jpg)
+ *   pink liquid    → rose         (rose.jpg)
+ *   brown liquid   → cola         (cola.jpg)
+ *   blue liquid    → blueberry    (blueberry.jpg)
  *
- * Photos are presented on a soft neutral tile (bg-cream) with
- * object-contain so all 7 read consistently in the grid.
+ * All 7 flavors have real photos — no SVG fallback needed in production.
+ * The onError handler still catches any missing-file edge case gracefully.
  */
 
 import { useState } from "react";
 import { BottleArt } from "./BottleArt";
 import { FactoryScene } from "./FactoryScene";
 
-const REAL_PHOTO_FLAVORS = new Set(["cola", "blueberry", "rose"]);
+const REAL_PHOTO_FLAVORS = new Set([
+  "cola",
+  "blueberry",
+  "rose",
+  "orange",
+  "original",
+  "lemon",
+  "green-apple",
+]);
 
 export function ProductPhoto({
   flavor,
