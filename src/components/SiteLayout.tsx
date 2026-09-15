@@ -258,13 +258,14 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               )}
             </Button>
 
-            {isLoading ? null : isAuthenticated ? (
+            {isAuthenticated ? (
               <div className="relative">
                 <Button
                   variant="outline"
                   size="sm"
                   className="gap-1.5"
                   onClick={() => setAccountOpen((v) => !v)}
+                  disabled={isLoading}
                 >
                   <User className="size-3.5" />
                   <span className="hidden sm:inline">
@@ -305,7 +306,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                 )}
               </div>
             ) : (
-              <Button size="sm" asChild>
+              <Button size="sm" asChild disabled={isLoading}>
                 <Link to="/auth?returnTo=%2Fflavors">Sign in</Link>
               </Button>
             )}

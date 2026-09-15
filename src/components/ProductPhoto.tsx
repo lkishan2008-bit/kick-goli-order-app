@@ -101,7 +101,7 @@ export function BottleFamily({ className }: { className?: string }) {
           >
             <ProductPhoto
               flavor={f}
-              className="w-[9vw] max-w-[64px] min-w-[30px]"
+              className="h-[14vw] max-h-24 min-h-[52px] w-auto"
             />
           </div>
         ))}
