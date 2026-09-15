@@ -91,9 +91,11 @@ export default function Account() {
 
   const [name, setName] = useState(user?.name ?? "");
   const [phone, setPhone] = useState(user?.phone ?? "");
+  const [phoneError, setPhoneError] = useState("");
   const [savingProfile, setSavingProfile] = useState(false);
 
   const [showForm, setShowForm] = useState(false);
+  const [draftPhoneError, setDraftPhoneError] = useState("");
   const [draft, setDraft] = useState({
     label: "Home",
     recipientName: "",
@@ -106,9 +108,15 @@ export default function Account() {
   });
 
   async function handleSaveProfile() {
+    const digits = phone.replace(/\D/g, "");
+    if (phone.trim() !== "" && digits.length !== 10) {
+      setPhoneError("Phone must be exactly 10 digits");
+      return;
+    }
+    setPhoneError("");
     setSavingProfile(true);
     try {
-      await updateProfile({ name: name.trim(), phone: phone.trim() });
+      await updateProfile({ name: name.trim(), phone: digits });
       toast.success("Profile updated");
     } catch {
       toast.error("Could not update profile");
@@ -118,11 +126,17 @@ export default function Account() {
   }
 
   async function handleAddAddress() {
+    const addrDigits = draft.phone.replace(/\D/g, "");
+    if (addrDigits.length !== 10) {
+      setDraftPhoneError("Phone must be exactly 10 digits");
+      return;
+    }
+    setDraftPhoneError("");
     try {
       await addAddress({
         label: draft.label.trim() || "Address",
         recipientName: draft.recipientName.trim(),
-        phone: draft.phone.trim(),
+        phone: addrDigits,
         addressLine: draft.addressLine.trim(),
         landmark: draft.landmark.trim() || undefined,
         city: draft.city.trim(),
@@ -131,6 +145,7 @@ export default function Account() {
       });
       toast.success("Address saved");
       setShowForm(false);
+      setDraftPhoneError("");
       setDraft({
         label: "Home",
         recipientName: "",
@@ -173,10 +188,18 @@ export default function Account() {
             <Input
               id="acc-phone"
               inputMode="numeric"
+              maxLength={10}
               value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              placeholder="96204 16948"
+              onChange={(e) => {
+                const digits = e.target.value.replace(/\D/g, "").slice(0, 10);
+                setPhone(digits);
+                setPhoneError("");
+              }}
+              placeholder="9620416948"
             />
+            {phoneError && (
+              <p className="text-xs text-destructive">{phoneError}</p>
+            )}
           </div>
         </div>
         <Button
@@ -226,13 +249,21 @@ export default function Account() {
               />
             </div>
             <div className="grid gap-1.5">
-              <Label htmlFor="ad-phone">Phone</Label>
+              <Label htmlFor="ad-phone">Phone (10 digits)</Label>
               <Input
                 id="ad-phone"
                 inputMode="numeric"
+                maxLength={10}
                 value={draft.phone}
-                onChange={(e) => setDraft({ ...draft, phone: e.target.value })}
+                onChange={(e) => {
+                  const digits = e.target.value.replace(/\D/g, "").slice(0, 10);
+                  setDraft({ ...draft, phone: digits });
+                  setDraftPhoneError("");
+                }}
               />
+              {draftPhoneError && (
+                <p className="text-xs text-destructive">{draftPhoneError}</p>
+              )}
             </div>
             <div className="grid gap-1.5 sm:col-span-2">
               <Label htmlFor="ad-line">Address</Label>

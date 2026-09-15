@@ -73,7 +73,7 @@ export default function Checkout() {
     }
     return (
       draft.recipientName.trim().length > 1 &&
-      /^\d{10}$/.test(draft.phone.replace(/\D/g, "").slice(-10)) &&
+      /^\d{10}$/.test(draft.phone) &&
       draft.addressLine.trim().length > 4 &&
       draft.city.trim().length > 1 &&
       draft.state.trim().length > 1 &&
@@ -247,13 +247,17 @@ export default function Checkout() {
                   <Input
                     id="phone"
                     inputMode="numeric"
+                    maxLength={10}
                     value={draft.phone}
                     onChange={(e) =>
-                      setDraft({ ...draft, phone: e.target.value })
+                      setDraft({ ...draft, phone: e.target.value.replace(/\D/g, "").slice(0, 10) })
                     }
-                    placeholder="96204 16948"
+                    placeholder="9620416948"
                     autoComplete="tel"
                   />
+                  {draft.phone.length > 0 && draft.phone.length < 10 && (
+                    <p className="text-xs text-destructive">Phone must be exactly 10 digits</p>
+                  )}
                 </div>
                 <div className="grid gap-1.5 sm:col-span-2">
                   <Label htmlFor="addressLine">Address</Label>
