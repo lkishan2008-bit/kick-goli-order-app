@@ -10,8 +10,12 @@ import {
 import { api } from "@/convex/_generated/api";
 import { useAuth } from "@/hooks/use-auth";
 import { useMutation, useQuery } from "convex/react";
-import { ClipboardList, Lock } from "lucide-react";
+import { ClipboardList, Lock, MessageCircle } from "lucide-react";
 import { toast } from "sonner";
+import {
+  buildOrderUpdateMessage,
+  openWhatsApp,
+} from "@/lib/whatsapp";
 import { Link } from "react-router";
 
 const STATUS_FLOW = ["placed", "preparing", "out_for_delivery", "delivered"] as const;
@@ -142,7 +146,7 @@ export default function Admin() {
                       {order.deliveryAddress.pincode}
                     </p>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <Badge
                       variant="outline"
                       className={order.status === "delivered" ? "text-primary" : ""}
@@ -175,6 +179,23 @@ export default function Admin() {
                         </SelectContent>
                       </Select>
                     )}
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="gap-1.5 border-green-600/40 text-green-700 hover:bg-green-50 hover:text-green-800 dark:text-green-400 dark:hover:bg-green-950/30"
+                      onClick={() =>
+                        openWhatsApp(
+                          order.deliveryAddress.phone,
+                          buildOrderUpdateMessage({
+                            orderId: order._id,
+                            status: order.status,
+                          }),
+                        )
+                      }
+                    >
+                      <MessageCircle className="size-3.5" />
+                      WhatsApp
+                    </Button>
                   </div>
                 </div>
 
