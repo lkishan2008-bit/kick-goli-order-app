@@ -2,9 +2,9 @@
  * WhatsApp notification helpers for Kick Goli Soda.
  *
  * Change SHOP_WHATSAPP_NUMBER here to update it across the entire app.
- * Format: country-code + number, no spaces or dashes (e.g. "919945347632").
+ * Format: country-code + number, no spaces or dashes (e.g. "919620416948").
  */
-export const SHOP_WHATSAPP_NUMBER = "919945347632";
+export const SHOP_WHATSAPP_NUMBER = "919620416948";
 
 /** Open a WhatsApp chat link in a new tab. */
 export function openWhatsApp(phone: string, message: string) {
