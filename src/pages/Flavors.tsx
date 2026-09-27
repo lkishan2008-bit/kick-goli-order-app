@@ -1,4 +1,5 @@
 import { ProductPhoto } from "@/components/ProductPhoto";
+import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -34,22 +35,22 @@ export default function Flavors() {
   }, [queryProducts, ensureSeeded]);
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-10">
-      <div className="mb-8">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-muted-foreground">
+    <div className="mx-auto w-full max-w-6xl px-4 py-14 md:py-16">
+      <div className="mb-12">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-muted-foreground">
           The range
         </p>
-        <h1 className="font-display mt-2 text-3xl tracking-tight sm:text-4xl">
+        <h1 className="font-display text-display-2 mt-3">
           Seven flavours
         </h1>
-        <p className="mt-3 max-w-xl text-sm leading-6 text-muted-foreground">
+        <p className="mt-5 max-w-xl text-base leading-7 text-muted-foreground">
           Every bottle is 200 ml of marble-stoppered glass, priced ₹25–30. Add
           what you like — your cart follows your account across devices.
         </p>
       </div>
 
       {products.length === 0 ? (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
           {[0, 1, 2, 3, 4, 5, 6].map((i) => (
             <div
               key={i}
@@ -58,9 +59,11 @@ export default function Flavors() {
           ))}
         </div>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {products.map((p) => (
-            <FlavorCard key={p._id} product={p} />
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+          {products.map((p, i) => (
+            <Reveal key={p._id} delay={i * 0.05} className="h-full">
+              <FlavorCard product={p} />
+            </Reveal>
           ))}
         </div>
       )}
@@ -87,12 +90,12 @@ function FlavorCard({
   const inCart = lines.find((l) => l.productId === product._id)?.quantity ?? 0;
 
   return (
-    <Card className="studio-frame studio-frame-hover flex flex-col overflow-hidden border-border/80 py-0 gap-0">
-      <CardHeader className="items-center border-b border-border/60 bg-cream/50 pb-2 pt-6">
-        <ProductPhoto flavor={product.imageKey} className="h-40 w-auto" />
+    <Card className="studio-frame studio-frame-hover flex h-full flex-col overflow-hidden border-border/80 py-0 gap-0">
+      <CardHeader className="items-center border-b border-border/60 bg-cream/50 pb-3 pt-8">
+        <ProductPhoto flavor={product.imageKey} className="h-48 w-auto" />
       </CardHeader>
-      <CardContent className="flex-1 pb-0 pt-4">
-        <CardTitle className="text-base">{product.name}</CardTitle>
+      <CardContent className="flex-1 pb-0 pt-5">
+        <CardTitle className="text-lg">{product.name}</CardTitle>
         <p className="mt-1.5 text-sm leading-6 text-muted-foreground">
           {product.description}
         </p>
@@ -104,7 +107,7 @@ function FlavorCard({
       </CardContent>
       <CardFooter className="flex items-center justify-between gap-3 border-t border-border/60 pb-4 pt-4">
         <div>
-          <p className="text-lg font-semibold tabular-nums">₹{product.price}</p>
+          <p className="text-xl font-semibold tabular-nums">₹{product.price}</p>
           <p className="text-[11px] text-muted-foreground">200 ml bottle</p>
         </div>
         <div className="flex items-center gap-2">
@@ -170,7 +173,7 @@ function AddAllSeven({
     );
 
   return (
-    <div className="studio-frame mt-8 flex flex-col items-center justify-between gap-4 rounded-2xl bg-card px-5 py-5 sm:flex-row">
+    <div className="studio-frame mt-12 flex flex-col items-center justify-between gap-4 rounded-3xl bg-card px-6 py-6 sm:flex-row sm:py-7">
       <div>
         <p className="font-display text-lg">Can't pick one?</p>
         <p className="mt-1 text-sm text-muted-foreground">

@@ -42,10 +42,11 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
-/* CHANGE VALUES FOR THEME — Studio: warm off-whites, soft cream, charcoal ink,
-   one orange accent drawn from the Kick Goli Soda mark. */
+/* CHANGE VALUES FOR THEME — Studio, refined toward a premium consumer-brand
+   feel: warm off-whites, charcoal ink, one orange accent, larger radius,
+   softer and deeper shadows, restrained borders. */
 :root {
-  --radius: 0.875rem;
+  --radius: 1.25rem;
   --background: oklch(0.978 0.006 85);
   --foreground: oklch(0.27 0.014 75);
   --card: oklch(0.995 0.003 85);
@@ -90,30 +91,95 @@
 html {
   font-family: "Inter", "Helvetica Neue", ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
 }
 
+/* Display type — larger optical scale, tighter leading for big headings. */
 .font-display {
   font-family: var(--font-display);
   font-weight: 500;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
 }
 
-/* Studio: thin framing + soft gallery shadows for product cards */
+@media (min-width: 768px) {
+  .text-display-1 {
+    font-size: clamp(3.5rem, 6.5vw, 5.75rem);
+    line-height: 1.02;
+  }
+  .text-display-2 {
+    font-size: clamp(2.25rem, 4vw, 3.25rem);
+    line-height: 1.06;
+  }
+  .text-display-3 {
+    font-size: clamp(1.5rem, 2.4vw, 1.9rem);
+    line-height: 1.15;
+  }
+}
+@media (max-width: 767.98px) {
+  .text-display-1 {
+    font-size: clamp(2.6rem, 10vw, 3.4rem);
+    line-height: 1.04;
+  }
+  .text-display-2 {
+    font-size: clamp(1.9rem, 7.5vw, 2.4rem);
+    line-height: 1.08;
+  }
+  .text-display-3 {
+    font-size: 1.4rem;
+    line-height: 1.2;
+  }
+}
+
+/* Section rhythm — generous, Apple-like air between sections. */
+.section-pad {
+  padding-block: 5.5rem;
+}
+@media (max-width: 767.98px) {
+  .section-pad {
+    padding-block: 3.75rem;
+  }
+}
+
+/* Studio: thin framing + soft, deep gallery shadows for cards */
 .studio-frame {
-  border: 1px solid var(--border);
+  border: 1px solid color-mix(in oklch, var(--border) 75%, transparent);
   box-shadow:
     0 1px 2px rgb(38 32 24 / 0.04),
-    0 8px 24px -12px rgb(38 32 24 / 0.1);
+    0 12px 32px -16px rgb(38 32 24 / 0.12);
 }
 .studio-frame-hover {
-  transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+  transition:
+    box-shadow 0.35s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1),
+    border-color 0.35s ease;
 }
 .studio-frame-hover:hover {
-  border-color: color-mix(in oklch, var(--border) 70%, var(--primary));
+  border-color: color-mix(in oklch, var(--border) 60%, var(--primary));
   box-shadow:
-    0 2px 4px rgb(38 32 24 / 0.05),
-    0 18px 40px -16px rgb(38 32 24 / 0.16);
-  transform: translateY(-2px);
+    0 2px 6px rgb(38 32 24 / 0.05),
+    0 28px 56px -20px rgb(38 32 24 / 0.18);
+  transform: translateY(-4px);
+}
+
+/* Buttons: pill radius, quiet shadow, gentle press + lift. */
+.studio-btn {
+  border-radius: 9999px;
+  box-shadow:
+    0 1px 2px rgb(38 32 24 / 0.06),
+    0 6px 16px -8px rgb(38 32 24 / 0.14);
+  transition:
+    transform 0.25s cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 0.25s ease,
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+.studio-btn:hover {
+  box-shadow:
+    0 2px 4px rgb(38 32 24 / 0.06),
+    0 12px 24px -10px rgb(38 32 24 / 0.2);
+}
+.studio-btn:active {
+  transform: scale(0.97);
 }
 
 .dark {

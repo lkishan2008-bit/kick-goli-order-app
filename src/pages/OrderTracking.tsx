@@ -60,11 +60,11 @@ export default function OrderTracking() {
   });
 
   return (
-    <div className="mx-auto w-full max-w-2xl px-4 py-10">
+    <div className="mx-auto w-full max-w-2xl px-4 py-14 md:py-16">
       <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-muted-foreground">
         Order #{order._id.slice(-8).toUpperCase()}
       </p>
-      <h1 className="font-display mt-2 text-3xl tracking-tight">
+      <h1 className="font-display text-display-2 mt-2">
         {order.status === "delivered"
           ? "Delivered — enjoy!"
           : stepIndex === 2

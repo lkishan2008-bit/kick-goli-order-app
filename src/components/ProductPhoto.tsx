@@ -89,7 +89,7 @@ export function BottleFamily({ className }: { className?: string }) {
   const flavors = ["cola", "blueberry", "green-apple", "original", "orange", "lemon", "rose"];
   return (
     <div className={className}>
-      <div className="flex items-end justify-center gap-2 sm:gap-4">
+      <div className="flex items-end justify-center gap-2.5 sm:gap-5">
         {flavors.map((f, i) => (
           <div
             key={f}
@@ -101,7 +101,7 @@ export function BottleFamily({ className }: { className?: string }) {
           >
             <ProductPhoto
               flavor={f}
-              className="h-[14vw] max-h-24 min-h-[52px] w-auto"
+              className="h-[17vw] max-h-32 min-h-[60px] w-auto"
             />
           </div>
         ))}

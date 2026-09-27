@@ -144,7 +144,7 @@ function CartDrawer({
               </div>
             </dl>
             <Button
-              className="mt-4 w-full"
+              className="studio-btn mt-4 w-full rounded-full"
               size="lg"
               onClick={() => {
                 onOpenChange(false);
@@ -179,7 +179,7 @@ function StickyCartBar({ onOpenCart }: { onOpenCart: () => void }) {
       <button
         type="button"
         onClick={onOpenCart}
-        className="flex w-full items-center justify-between rounded-xl bg-primary px-4 py-3 text-primary-foreground shadow-sm transition-transform active:scale-[0.99]"
+        className="studio-btn flex w-full items-center justify-between rounded-full bg-primary px-5 py-3.5 text-primary-foreground"
       >
         <span className="flex items-center gap-2 text-sm font-medium">
           <span className="flex size-5 items-center justify-center rounded-md bg-primary-foreground/20 text-xs font-bold tabular-nums">
@@ -199,6 +199,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   const { isAuthenticated, isLoading, user, signOut } = useAuth();
   const { count } = useCart();
   const navigate = useNavigate();
+  const location = useLocation();
   const [cartOpen, setCartOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
 
@@ -214,8 +215,8 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <header className="sticky top-0 z-40 border-b border-border/80 bg-background/90 backdrop-blur">
-        <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-3 px-4">
+      <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur-md">
+        <div className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between gap-3 px-4 md:h-16">
           <Link to="/" className="flex items-center gap-2.5">
             <span className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg bg-cream">
               <ProductPhoto flavor="orange" className="h-8 w-7" />
@@ -235,7 +236,11 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               <Link
                 key={item.to}
                 to={item.to}
-                className="rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                className={
+                  location.pathname === item.to
+                    ? "px-3 py-2 text-sm font-medium text-foreground transition-colors"
+                    : "px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                }
               >
                 {item.label}
               </Link>
@@ -279,7 +284,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                       className="fixed inset-0 z-40"
                       onClick={() => setAccountOpen(false)}
                     />
-                    <div className="studio-frame absolute right-0 z-50 mt-1 w-44 overflow-hidden rounded-xl border border-border bg-card">
+                    <div className="studio-frame absolute right-0 z-50 mt-2 w-44 overflow-hidden rounded-2xl border border-border bg-card">
                       {navItems.map((item) => (
                         <Link
                           key={item.to}
@@ -306,7 +311,12 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                 )}
               </div>
             ) : (
-              <Button size="sm" asChild disabled={isLoading}>
+              <Button
+                size="sm"
+                className="studio-btn rounded-full"
+                asChild
+                disabled={isLoading}
+              >
                 <Link to="/auth?returnTo=%2Fflavors">Sign in</Link>
               </Button>
             )}
@@ -329,8 +339,8 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
       <main className="flex-1 pb-20 md:pb-0">{children}</main>
 
-      <footer className="border-t border-border/80 bg-cream/50">
-        <div className="mx-auto grid w-full max-w-6xl gap-8 px-4 py-12 sm:grid-cols-2 lg:grid-cols-3">
+      <footer className="border-t border-border/60 bg-cream/40">
+        <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-16 sm:grid-cols-2 lg:grid-cols-3">
           <div>
             <p className="font-display text-base font-semibold">
               Kick Goli Soda

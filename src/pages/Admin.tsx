@@ -66,14 +66,14 @@ export default function Admin() {
     .reduce((n, o) => n + o.totalAmount, 0);
 
   return (
-    <div className="mx-auto w-full max-w-4xl px-4 py-10">
-      <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-muted-foreground">
+    <div className="mx-auto w-full max-w-4xl px-4 py-14 md:py-16">
+      <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-muted-foreground">
         Vibhin Enterprises
       </p>
-      <h1 className="font-display mt-2 text-3xl tracking-tight">
+      <h1 className="font-display text-display-2 mt-2">
         Owner console
       </h1>
-      <p className="mt-2 text-sm text-muted-foreground">
+      <p className="mt-3 text-base text-muted-foreground">
         Incoming orders — move a status and the customer's tracker updates
         instantly.
       </p>
